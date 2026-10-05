@@ -22,4 +22,19 @@ class AlumnoTest {
     @Test void materiaRechazaCreditosNoPositivos() {
         assertThrows(IllegalArgumentException.class, () -> new Materia(null, "M1", "Análisis", 0));
     }
+
+    @Test void reactivarConservaIdentidadSinModificarElOriginal() {
+        var baja = new Alumno(1L, "a001", "Ada", "ada@u.mx", EstatusAlumno.BAJA);
+        var activo = baja.reactivar();
+        assertEquals(EstatusAlumno.ACTIVO, activo.estatus());
+        assertEquals(baja.id(), activo.id());
+        assertEquals(EstatusAlumno.BAJA, baja.estatus());
+    }
+
+    @Test void mismoIdDistintoCorreoNoSonIguales() {
+        var a = new Alumno(1L, "a001", "Ada", "ada@u.mx", EstatusAlumno.ACTIVO);
+        var b = new Alumno(1L, "a001", "Ada", "ada.l@u.mx", EstatusAlumno.ACTIVO);
+        assertEquals(a.id(), b.id());
+        assertNotEquals(a, b);
+    }
 }
