@@ -17,7 +17,7 @@ class AlumnoRepositoryEnMemoriaConcurrenciaTest {
 
         Runnable tarea = () -> {
             try {
-                // 1. Ambas tareas esperan la misma señal para intentar guardar a la vez.
+                // ambas tareas esperan la misma señal para intentar guardar a la vez
                 salida.await();
                 repository.guardar(new Alumno(null, "A001", "Ada", "ada@u.mx", EstatusAlumno.ACTIVO));
             } catch (MatriculaDuplicadaException e) {
@@ -32,20 +32,11 @@ class AlumnoRepositoryEnMemoriaConcurrenciaTest {
         hilo1.start();
         hilo2.start();
         salida.countDown();
-        // 2. join espera a que cada hilo termine, sin pausas arbitrarias.
+        // join espera a que cada hilo termine
         hilo1.join();
         hilo2.join();
 
         assertEquals(1, repository.buscarTodos().size());
         assertEquals(1, conflictos.get());
     }
-
-    /*
-     * Un AtomicInteger aislado sólo vuelve indivisible un incremento. La unicidad
-     * requiere comprobar y escribir como una sola operación; eso lo garantiza
-     * guardar() al ser synchronized, no un contador.
-     *
-     * Esta prueba muestra un entrelazado con dos hilos; no demuestra que todos
-     * los entrelazados posibles respeten la regla.
-     */
 }
