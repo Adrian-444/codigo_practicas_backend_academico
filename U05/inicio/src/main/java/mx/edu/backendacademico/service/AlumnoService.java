@@ -47,4 +47,15 @@ public class AlumnoService {
         buscar(id);
         repository.eliminarPorId(id);
     }
+
+    public List<Alumno> listarPorEstatus(EstatusAlumno estatus) {
+        // Sin filtro conserva el contrato original: devuelve todos los alumnos.
+        if (estatus == null) {
+            return listar();
+        }
+        // filter genera una lista nueva; la colección del repositorio no se modifica.
+        return repository.buscarTodos().stream()
+                .filter(alumno -> alumno.estatus() == estatus)
+                .toList();
+    }
 }
