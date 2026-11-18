@@ -8,6 +8,7 @@ import mx.edu.backendacademico.service.InscripcionService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.test.context.DynamicPropertyRegistry;
 import org.springframework.test.context.DynamicPropertySource;
 import org.testcontainers.postgresql.PostgreSQLContainer;
@@ -44,5 +45,23 @@ class PostgresIntegrationTest {
         assertEquals("SIN_CUPO", llena.getCodigo());
         // Las llamadas anteriores pasaron por el proxy real y terminaron su transacción.
         assertEquals(1, inscripciones.countByMateriaId(materia.getId()));
+    }
+
+    @Test void postgresRechazaUnaMatriculaRepetida() {
+        alumnos.saveAndFlush(new AlumnoEntity(new Alumno(null, "U1", "Ada", "ada.u1@u.mx", EstatusAlumno.ACTIVO)));
+        var error = assertThrows(DataIntegrityViolationException.class, () ->
+                alumnos.saveAndFlush(new AlumnoEntity(new Alumno(null, "U1", "Otra", "otra.u1@u.mx", EstatusAlumno.ACTIVO))));
+        var restriccion = buscarRestriccion(error);
+        assertNotNull(restriccion, "La causa debe ser una violación de restricción de la base");
+        assertEquals("23505", restriccion.getSQLState());
+        assertEquals("uk_alumnos_matricula", restriccion.getConstraintName());
+        assertEquals(1, alumnos.findAll().stream().filter(a -> a.toDomain().matricula().equals("U1")).count());
+    }
+
+    private static org.hibernate.exception.ConstraintViolationException buscarRestriccion(Throwable error) {
+        for (Throwable causa = error; causa != null; causa = causa.getCause()) {
+            if (causa instanceof org.hibernate.exception.ConstraintViolationException restriccion) return restriccion;
+        }
+        return null;
     }
 }
