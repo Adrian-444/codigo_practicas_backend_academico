@@ -61,6 +61,12 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
         return problema(status, ex.getCodigo(), ex.getMessage());
     }
 
+    @ExceptionHandler(org.springframework.security.access.AccessDeniedException.class)
+    ProblemDetail accesoDenegado(org.springframework.security.access.AccessDeniedException ex) {
+        // Sin este manejador, el catch-all de Exception convertiría la negación en 500.
+        return problema(HttpStatus.FORBIDDEN, "ACCESO_DENEGADO", "No puedes consultar el expediente de otro usuario");
+    }
+
     @ExceptionHandler(Exception.class)
     ProblemDetail inesperado(Exception ex) {
         String referencia = UUID.randomUUID().toString();

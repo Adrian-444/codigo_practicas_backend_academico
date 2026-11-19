@@ -42,3 +42,36 @@ Authorization: Basic docente docente123
 DELETE http://localhost:8080/api/v1/alumnos/17
 Authorization: Basic docente docente123
 X-CSRF-TOKEN: {{csrf}}
+
+### ===== Reto U10: mi expediente =====
+### Antes, como docente, crea los alumnos A100 y A200 (requiere el token CSRF)
+POST http://localhost:8080/api/v1/alumnos
+Authorization: Basic docente docente123
+X-CSRF-TOKEN: {{csrf}}
+Content-Type: application/json
+
+{"matricula":"A100","nombre":"Ada Lovelace","correo":"ada.a100@u.mx"}
+
+###
+POST http://localhost:8080/api/v1/alumnos
+Authorization: Basic docente docente123
+X-CSRF-TOKEN: {{csrf}}
+Content-Type: application/json
+
+{"matricula":"A200","nombre":"Emmy Noether","correo":"emmy.a200@u.mx"}
+
+### Propietario: mi expediente (200, A100)
+GET http://localhost:8080/api/v1/expediente
+Authorization: Basic A100 a100pass
+
+### Propietario intentando suplantar con un parámetro (se ignora, sigue siendo A100)
+GET http://localhost:8080/api/v1/expediente?usuario=A200
+Authorization: Basic A100 a100pass
+
+### Usuario ajeno: A200 pide el expediente de A100 (403 ACCESO_DENEGADO)
+GET http://localhost:8080/api/v1/expediente/A100
+Authorization: Basic A200 a200pass
+
+### Administrador: consulta cualquier expediente (200)
+GET http://localhost:8080/api/v1/expediente/A100
+Authorization: Basic admin admin123
