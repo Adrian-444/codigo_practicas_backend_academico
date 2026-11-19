@@ -1,7 +1,5 @@
 package mx.edu.backendacademico.controller;
 
-// Reto U10: expone el expediente; Spring inyecta el principal autenticado.
-
 import mx.edu.backendacademico.dto.AlumnoMapper;
 import mx.edu.backendacademico.dto.AlumnoResponse;
 import mx.edu.backendacademico.service.ExpedienteService;
@@ -20,7 +18,7 @@ public class ExpedienteController {
         this.service = service;
     }
 
-    // Mi expediente: no recibe usuario ni matrícula; la identidad viene de la autenticación.
+    // Mi expediente: no recibe usuario ni matrícula, la identidad viene de la autenticación.
     @GetMapping
     public AlumnoResponse miExpediente(Authentication usuario) {
         return AlumnoMapper.toResponse(service.miExpediente(usuario));

@@ -18,7 +18,7 @@ import org.springframework.context.annotation.Import;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;
 
-// Se usa el ExpedienteService real para probar la regla por objeto; sólo se simula el almacén.
+// Se usa el ExpedienteService real para probar la regla por objeto
 @WebMvcTest(ExpedienteController.class)
 @Import({SecurityConfig.class, ExpedienteService.class})
 class ExpedienteTest {
