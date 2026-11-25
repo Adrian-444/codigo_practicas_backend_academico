@@ -1,6 +1,6 @@
 # Cuentas conocidas de laboratorio. Mantén las cookies habilitadas en HTTP Client.
 # 1. Ejecuta GET /csrf como docente. 2. Copia token a csrf. 3. Conserva JSESSIONID.
-@csrf = KiyadwyluIDsbG1kKwHMEwJwWzpDuKzq2ngl01mXnZHRH2M7Hkj4Tz-S2ubBVFpUSiz4KjBIdlt7gM7HuxwR62v0raa3ewcD
+@csrf = yyaHjOoJmNtSChgHdPPSqBIjV1LIPvSBLP61-kyUE6NW1BwIrke-6ols-rp_PH4_Q97mnHcaemv9B5CsTs2DwijxccVk5is8
 
 ### Saludo público
 GET http://localhost:8080/api/v1/saludo
@@ -22,7 +22,7 @@ GET http://localhost:8080/api/v1/alumnos
 Authorization: Basic alumno alumno123
 
 ### Sustituir nombre y correo; repite para observar el mismo estado editable
-PUT http://localhost:8080/api/v1/alumnos/1
+PUT http://localhost:8080/api/v1/alumnos/20
 Authorization: Basic docente docente123
 X-CSRF-TOKEN: {{csrf}}
 Content-Type: application/json
@@ -30,15 +30,15 @@ Content-Type: application/json
 {"nombre":"Ada Byron","correo":"ada.byron@u.mx"}
 
 ### Crear inscripción después de sustituir el id real del alumno
-POST http://localhost:8080/api/v1/inscripciones?alumnoId=1&materiaId=17
+POST http://localhost:8080/api/v1/inscripciones?alumnoId=20&materiaId=1
 Authorization: Basic docente docente123
 X-CSRF-TOKEN: {{csrf}}
 
 ### Historial
-GET http://localhost:8080/api/v1/inscripciones/alumno/1?page=0&size=5&sort=fecha
+GET http://localhost:8080/api/v1/inscripciones/alumno/20?page=0&size=5&sort=fecha
 Authorization: Basic docente docente123
 
 ### Ejecuta sólo para un alumno sin inscripciones, con su id real
-DELETE http://localhost:8080/api/v1/alumnos/17
+DELETE http://localhost:8080/api/v1/alumnos/20
 Authorization: Basic docente docente123
 X-CSRF-TOKEN: {{csrf}}
