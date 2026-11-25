@@ -47,9 +47,18 @@ paths:
         '403': {$ref: '#/components/responses/Prohibido'}
     post:
       summary: Crea un alumno
-      description: Requiere DOCENTE o ADMIN y un token CSRF de la misma sesión.
+      description: >-
+        Requiere DOCENTE o ADMIN y un token CSRF de la misma sesión. Con Idempotency-Key,
+        repetir la solicitud con el mismo contenido devuelve el alumno ya creado.
       parameters:
         - {$ref: '#/components/parameters/Csrf'}
+        - name: Idempotency-Key
+          in: header
+          required: false
+          description: >-
+            Clave elegida por el cliente, única por usuario autenticado. La misma clave con
+            el mismo contenido no crea otro alumno; con contenido distinto responde 422.
+          schema: {type: string, minLength: 1, maxLength: 100, pattern: '^[\x21-\x7E]+$'}
       requestBody:
         required: true
         content:
@@ -62,6 +71,9 @@ paths:
             Location:
               description: URI de consulta del alumno creado
               schema: {type: string, format: uri-reference}
+            Idempotent-Replayed:
+              description: Presente con valor true cuando la respuesta corresponde a una repetición
+              schema: {type: string, enum: ['true']}
           content:
             application/json:
               schema: {$ref: '#/components/schemas/Alumno'}
@@ -69,6 +81,7 @@ paths:
         '401': {$ref: '#/components/responses/NoAutenticado'}
         '403': {$ref: '#/components/responses/Prohibido'}
         '409': {$ref: '#/components/responses/Problema'}
+        '422': {$ref: '#/components/responses/Problema'}
   /api/v1/alumnos/{id}:
     parameters:
       - name: id

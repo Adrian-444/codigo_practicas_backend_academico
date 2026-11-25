@@ -21,6 +21,7 @@ import org.springframework.test.web.servlet.MockMvc;
 class SeguridadTest {
     @Autowired MockMvc mvc;
     @MockitoBean AlumnoService service;
+    @MockitoBean mx.edu.backendacademico.service.CreacionIdempotenteService idempotente;
     private static final String DATOS = """
         {"matricula":"S1","nombre":"Ada","correo":"ada@u.mx"}
         """;
