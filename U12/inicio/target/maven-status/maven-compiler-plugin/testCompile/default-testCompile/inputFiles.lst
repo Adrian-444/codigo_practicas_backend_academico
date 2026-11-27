@@ -1,0 +1,9 @@
+/home/adrixn/UANL/7 semestre/WEB/codigo_practicas_backend_academico/U11/inicio/src/test/java/mx/edu/backendacademico/BackendAcademicoApplicationTests.java
+/home/adrixn/UANL/7 semestre/WEB/codigo_practicas_backend_academico/U11/inicio/src/test/java/mx/edu/backendacademico/controller/AccesoPropietarioTest.java
+/home/adrixn/UANL/7 semestre/WEB/codigo_practicas_backend_academico/U11/inicio/src/test/java/mx/edu/backendacademico/controller/AlumnoControllerTest.java
+/home/adrixn/UANL/7 semestre/WEB/codigo_practicas_backend_academico/U11/inicio/src/test/java/mx/edu/backendacademico/controller/SeguridadTest.java
+/home/adrixn/UANL/7 semestre/WEB/codigo_practicas_backend_academico/U11/inicio/src/test/java/mx/edu/backendacademico/domain/AlumnoTest.java
+/home/adrixn/UANL/7 semestre/WEB/codigo_practicas_backend_academico/U11/inicio/src/test/java/mx/edu/backendacademico/repository/PostgresIntegrationTest.java
+/home/adrixn/UANL/7 semestre/WEB/codigo_practicas_backend_academico/U11/inicio/src/test/java/mx/edu/backendacademico/service/AlumnoServiceTest.java
+/home/adrixn/UANL/7 semestre/WEB/codigo_practicas_backend_academico/U11/inicio/src/test/java/mx/edu/backendacademico/service/CacheYAccesoIntegrationTest.java
+/home/adrixn/UANL/7 semestre/WEB/codigo_practicas_backend_academico/U11/inicio/src/test/java/mx/edu/backendacademico/service/CalendarioClientTest.java

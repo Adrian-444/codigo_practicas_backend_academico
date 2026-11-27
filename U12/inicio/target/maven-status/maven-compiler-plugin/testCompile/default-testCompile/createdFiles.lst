@@ -1,0 +1,9 @@
+mx/edu/backendacademico/repository/PostgresIntegrationTest.class
+mx/edu/backendacademico/controller/AccesoPropietarioTest.class
+mx/edu/backendacademico/controller/SeguridadTest.class
+mx/edu/backendacademico/service/CacheYAccesoIntegrationTest.class
+mx/edu/backendacademico/domain/AlumnoTest.class
+mx/edu/backendacademico/controller/AlumnoControllerTest.class
+mx/edu/backendacademico/service/CalendarioClientTest.class
+mx/edu/backendacademico/BackendAcademicoApplicationTests.class
+mx/edu/backendacademico/service/AlumnoServiceTest.class
